@@ -20,7 +20,6 @@ def check_failed_logins():
             return True
     return False
 
-# Function to capture image
 def capture_image():
     camera = cv2.VideoCapture(0)
     ret, frame = camera.read()
@@ -63,6 +62,9 @@ def send_email(image_path):
         server.sendmail(sender_email, receiver_email, msg.as_string())
         server.quit()
         print("Email sent successfully with the image!")
+        if os.path.exists(image_path):
+            os.remove(image_path)
+            print(f"Image deleted: {image_path}")
     except Exception as e:
         print("Error:", e)
 
